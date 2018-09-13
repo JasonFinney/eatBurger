@@ -1,0 +1,63 @@
+<img src="/public/assets/burger.png" alt="burger">
+
+<h1>Eat-Da-Burger!</h1>
+
+<div>
+    <div class="left-list">
+        <ul>
+            {{#each burger}}
+            {{#if this.devour == 0}}
+            <li>
+                <p>
+                    {{this.id}}. {{this.burger}}
+                    <br>
+                    <button data-burgerid="{{this.id}}" class="devourburger">Devour!</button>
+                </p>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+    <div class="right-list">
+        <ul>
+            {{#each burger}}
+            {{#if this.devour == 1}}
+            <li>
+                <p>
+                    {{this.id}}. {{this.burger}}
+                </p>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+</div>
+
+<h2>Add a Burger</h2>
+<form id="createBurger" class="button-size">
+    <textarea type="text" name="Burger"></textarea><br>
+    <button type="submit">Add Burger!</button><br>
+</form>
+
+<script>
+    $(".devourburger").on("submit", function (event) {
+        event.preventDefault();
+        $.ajax("/updateburger", {
+            method: "PUT"
+        }).then(function () {
+            location.reload();
+        });
+    });
+    $("#createBurger").on("submit", function (event) {
+        event.preventDefault();
+        var newBurger = {
+            burger: $("#createBurger [name=Burger]").val().trim()
+        };
+        $.ajax("/addburger" + id, {
+            method: "POST",
+            data: newBurger
+        }).then(function () {
+            location.reload();
+        });
+    });
+</script>
