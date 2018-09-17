@@ -6,26 +6,27 @@
     <div class="left-list">
         <ul>
             {{#each burger}}
-            {{#if this.devour == 0}}
+            {{#if this.devoured == 0}}
             <li>
                 <p>
                     {{this.id}}. {{this.burger}}
                     <br>
-                    <button data-burgerid="{{this.id}}" class="devourburger">Devour!</button>
+                    <button type="submit" data-burgerid="{{this.id}}" class="devourburger">Devour!</button>
+                    <button type="submit" class="delete-burger" data-burgerid="{{this.id}}">DELETE!</button>
                 </p>
             </li>
             {{/if}}
             {{/each}}
         </ul>
     </div>
-    <h1>people is crazy</h1>
     <div class="right-list">
         <ul>
             {{#each burger}}
-            {{#if this.devour == 1}}
+            {{#if this.devoured == 1}}
             <li>
                 <p>
                     {{this.id}}. {{this.burger}}
+                    <button class="delete-burger" data-burgerid="{{this.id}}">DELETE!</button>
                 </p>
             </li>
             {{/if}}
@@ -42,6 +43,7 @@
 
 <script>
     $(".devourburger").on("submit", function (event) {
+        console.log("this button was clicked!");
         event.preventDefault();
         $.ajax("/updateburger", {
             method: "PUT"
@@ -50,6 +52,7 @@
         });
     });
     $("#createBurger").on("submit", function (event) {
+        console.log("this button was clicked!");
         event.preventDefault();
         var newBurger = {
             burger: $("#createBurger [name=Burger]").val().trim()
@@ -57,6 +60,15 @@
         $.ajax("/addburger" + id, {
             method: "POST",
             data: newBurger
+        }).then(function () {
+            location.reload();
+        });
+    });
+    $(".delete-burger").on("submit", function (event) {
+        console.log("this button was clicked!");
+        event.preventDefault();
+        $.ajax("/deleteburger" + id, {
+            method: "DELETE"
         }).then(function () {
             location.reload();
         });

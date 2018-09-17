@@ -1,40 +1,33 @@
 var connection = require("./connection.js");
-var burger = require("/Users/Programming 2.0/Desktop/Github/eatBurger/models/burger")
-var express = require("express");
-var bodyParser = require("body-parser");
-var mysql = require("mysql");
-var exphbs = require("express-handlebars");
-var app = express();
-var PORT = process.env.PORT || 9000;
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
 
 var orm = {
-    selectAll: function () {
-        var queryString = "abc";
-        connection.query(queryString, [], function (err, result) {
+    all: function (tableInput, callback) {
+        var queryString = "SELECT * FROM " + tableInput + ";";
+        connection.query(queryString, function (err, result) {
             if (err) throw err;
-            console.log(result);
+            callback(result);
         });
     },
+    create: function (table, cols, vals, callback) {
+        var queryString = "INSERT INTO " + table + " (" + cols.toString();
+        queryString += ") VALUES (?);";
 
-    insertOne: function () {
-        var queryString = "abc";
-        connection.query(queryString, [], function (err, result) {
+        console.log(queryString);
+
+        connection.query(queryString, vals, function (err, result) {
             if (err) throw err;
-            console.log(result);
+            callback(result);
         });
     },
-
-    updateOne: function () {
-        var queryString = "abc";
-        connection.query(queryString, [], function (err, result) {
-            if (err) throw err;
-            console.log(result);
-        });
+    update: function (table, objColVals, condition, callback) {
+        var queryString = "UPDATE " + table + " SET ";
+        queryString += objColVals;
+        queryString += " WHERE " + condition + ";";
+        console.log(queryString);
     }
-};
+}
+
+
+
 
 module.exports = orm;

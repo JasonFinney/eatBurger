@@ -1,40 +1,26 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var mysql = require("mysql");
-var orm = require("./config/orm.js");
-var exphbs = require("express-handlebars");
-var app = express();
-var PORT = process.env.PORT || 9000;
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+var orm = require("../config/orm.js");
 
-var orm = {
-    selectAll: function () {
-        var queryString = "abc";
-        connection.query(queryString, [], function (err, result) {
-            if (err) throw err;
-            console.log(result);
+var burger = {
+    all: function (callback) {
+        orm.all("burgers", function (res) {
+            callback(res);
         });
     },
-
-    insertOne: function () {
-        var queryString = "abc";
-        connection.query(queryString, [], function (err, result) {
-            if (err) throw err;
-            console.log(result);
+    create: function (cols, vals, callback) {
+        orm.create("burgers", cols, vals, function (res) {
+            callback(res);
         });
     },
-
-    updateOne: function () {
-        var queryString = "abc";
-        connection.query(queryString, [], function (err, result) {
-            if (err) throw err;
-            console.log(result);
+    update: function (objColVals, condition, callback) {
+        orm.update("burgers", objColVals, condition, function (res) {
+            callback(res);
+        });
+    },
+    delete: function (condition, callback) {
+        orm.delete("burgers", condition, function (res) {
+            callback(res);
         });
     }
 };
-
 
 module.exports = burger;

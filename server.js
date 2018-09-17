@@ -10,9 +10,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+app.use(routes);
 
 orm.selectAll();
 
 orm.insertOne();
 
 orm.updateOne();
+
+app.listen(PORT, function () {
+    console.log("Server listening on: http://localhost:" + PORT);
+});
