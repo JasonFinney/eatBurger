@@ -23,11 +23,9 @@ var orm = {
         });
     },
     create: function (table, cols, vals, callback) {
-        var queryString = "INSERT INTO " + table + " (" + cols.toString();
-        queryString += ") VALUES (?);";
-
+        var queryString = "INSERT INTO " + table + " (" + cols.toString() + ") VALUES (?,?)";
         console.log(queryString);
-
+        console.log(vals);
         connection.query(queryString, vals, function (err, result) {
             if (err) throw err;
             callback(result);
@@ -42,8 +40,8 @@ var orm = {
         });
     },
     delete: function (table, condition, callback) {
-        var queryString = "DELETE FROM " + table + " WHERE ";
-        queryString += condition;
+        var queryString = "DELETE FROM " + table + " WHERE " + condition + ";";
+        console.log(queryString);
         connection.query(queryString, function (err, result) {
             if (err) throw err;
             callback(result);
