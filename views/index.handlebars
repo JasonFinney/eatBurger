@@ -45,7 +45,7 @@
     $(".devourburger").on("submit", function (event) {
         console.log("this button was clicked!");
         event.preventDefault();
-        $.ajax("/updateburger", {
+        $.ajax("/api/burgers", {
             method: "PUT"
         }).then(function () {
             location.reload();
@@ -57,7 +57,7 @@
         var newBurger = {
             burger: $("#createBurger [name=Burger]").val().trim()
         };
-        $.ajax("/addburger" + id, {
+        $.ajax("/api/burgers/" + id, {
             method: "POST",
             data: newBurger
         }).then(function () {
@@ -67,7 +67,7 @@
     $(".delete-burger").on("submit", function (event) {
         console.log("this button was clicked!");
         event.preventDefault();
-        $.ajax("/deleteburger" + id, {
+        $.ajax("/api/burgers/" + id, {
             method: "DELETE"
         }).then(function () {
             location.reload();
