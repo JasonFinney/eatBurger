@@ -34,10 +34,12 @@ var orm = {
         });
     },
     update: function (table, objColVals, condition, callback) {
-        var queryString = "UPDATE " + table + " SET ";
-        queryString += objToSql(objColVals);
-        queryString += " WHERE " + condition + ";";
+        var queryString = "UPDATE " + table + " SET devoured=1 WHERE " + condition + ";";
         console.log(queryString);
+        connection.query(queryString, function (err, result) {
+            if (err) throw err;
+            callback(result);
+        });
     },
     delete: function (table, condition, callback) {
         var queryString = "DELETE FROM " + table + " WHERE ";

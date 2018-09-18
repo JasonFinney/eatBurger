@@ -10,8 +10,8 @@
             <div class="left-list">
                 <h2>Uneaten Burgers</h2>
                 <ol>
-                    {{#unless devoured}}
                     {{#each burger}}
+                    {{#unless devoured}}
                     <li>
                         <p>
                             {{this.burger}}
@@ -20,8 +20,8 @@
                             <button id="delete-burger" data-burgerid="{{this.id}}">DELETE!</button>
                         </p>
                     </li>
-                    {{/each}}
                     {{/unless}}
+                    {{/each}}
                 </ol>
             </div>
             <div class="right-list">
@@ -55,12 +55,9 @@
     $(function () {
         $("#devourburger").on("click", function (event) {
             event.preventDefault();
-            console.log(this);
-            var id = $(this).attr("[data-burgerid]");
-            console.log(id);
-            var newDevoured = $(this).data("newdevoured");
+            var id = $(this).data("burgerid");
             var newDevouredState = {
-                devoured: newDevoured
+                devoured: true
             };
             console.log(newDevouredState);
             $.ajax("/api/burgers/" + id, {
