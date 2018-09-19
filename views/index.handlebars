@@ -17,7 +17,7 @@
                             {{this.burger}}
                             <br>
                             <button data-burgerid="{{this.id}}" id="devourburger">DEVOUR!</button>
-                            <button id="delete-burger" data-burgerid="{{this.id}}">DELETE!</button>
+                            <button class="delete-burger" data-burgerid="{{this.id}}">DELETE!</button>
                         </p>
                     </li>
                     {{/unless}}
@@ -32,7 +32,7 @@
                     <li>
                         <p>
                             {{this.burger}}
-                            <button id="delete-burger" data-burgerid="{{this.id}}">DELETE!</button>
+                            <button class="delete-burger" data-burgerid="{{this.id}}">DELETE!</button>
                         </p>
                     </li>
                     {{/if}}
@@ -80,7 +80,7 @@
                 location.reload();
             });
         });
-        $("#delete-burger").on("click", function (event) {
+        $(document).on("click", ".delete-burger", function (event) {
             var id = $(this).data("burgerid");
             event.preventDefault();
             $.ajax("/api/burgers/" + id, {
