@@ -16,7 +16,7 @@
                         <p>
                             {{this.burger}}
                             <br>
-                            <button data-burgerid="{{this.id}}" id="devourburger">DEVOUR!</button>
+                            <button data-burgerid="{{this.id}}" class="devourburger">DEVOUR!</button>
                             <button class="delete-burger" data-burgerid="{{this.id}}">DELETE!</button>
                         </p>
                     </li>
@@ -53,7 +53,7 @@
     crossorigin="anonymous"></script>
 <script>
     $(function () {
-        $("#devourburger").on("click", function (event) {
+        $(document).on("click", ".devourburger", function (event) {
             event.preventDefault();
             var id = $(this).data("burgerid");
             var newDevouredState = {
